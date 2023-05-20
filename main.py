@@ -7,7 +7,7 @@ from sklearn.metrics import confusion_matrix
 
 warnings.filterwarnings("ignore")
 
-data = pd.read_csv("https://raw.githubusercontent.com/amankharwal/Website-data/master/BRCA.csv")
+data = pd.read_csv("data.csv")
 data = data.dropna()
 
 data["Tumour_Stage"] = data["Tumour_Stage"].map({"I": 1, "II": 2, "III": 3})
@@ -23,19 +23,20 @@ y = np.array(data[['Patient_Status']])
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.10,random_state=42)
 
-model=SVC()
+model = SVC()
 model.fit(x_train,y_train)
+features = np.array([[76.0, 1, 0.080353, 0.42638, 0.54715, 0.273680, 3, 3, 1, 1, 2, 4,]])
+print(model.predict(features))
+y_predict = model.predict(x_test)
+print(y_predict)
+confusion_matrix = confusion_matrix(y_test,y_predict)
+true_positive = confusion_matrix[0][0]
+false_positive = confusion_matrix[0][1]
+false_negative = confusion_matrix[1][0]
+true_negative = confusion_matrix[1][1]
 
-y_pred=model.predict(x_test)
-print(y_pred)
-conf_mat = confusion_matrix(y_test,y_pred)
-true_positive = conf_mat[0][0]
-false_positive = conf_mat[0][1]
-false_negative = conf_mat[1][0]
-true_negative = conf_mat[1][1]
-
-Accuracy = (true_positive + true_negative) / (true_positive +false_positive+false_negative + true_negative)
-Precision = true_positive/(true_positive+false_positive)
-Recall = true_positive/(true_positive+false_negative)
-F1_Score = 2*(Recall * Precision) / (Recall + Precision)
-print(Accuracy, Precision, Recall, F1_Score)
+accuracy = (true_positive + true_negative) / (true_positive + false_positive+false_negative + true_negative)
+precision = true_positive / (true_positive + false_positive)
+recall = true_positive / (true_positive + false_negative)
+f1Score = 2 * (recall * precision) / (recall + precision)
+print(accuracy, precision, recall, f1Score)
