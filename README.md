@@ -30,7 +30,7 @@ To utilize the LifeSaver ML Models, follow these steps:
 
 The following dependencies are required to run the LifeSaver ML Models:
 
-- Python 3.7 or higher
+- 🐍 Python 3.7 or higher
 - 🧮 NumPy
 - 🐼 Pandas
 - 🤖 Scikit-learn
