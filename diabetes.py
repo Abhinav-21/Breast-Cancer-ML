@@ -18,15 +18,14 @@ x = np.array(data[['gender','age','hypertension','heart_disease','smoking_histor
 y = np.array(data[['diabetes']])
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.10,random_state=42)
-# data = data.dropna()
+
 model = SVC()
-# model.fit(x_train,y_train)
 filename = "model.joblib"
+
+# ! uncomment this to train model
+# model.fit(x_train,y_train)
 # joblib.dump(model, filename)
-# data = data.dropna()
-# feature = np.array()
-# print(model.predict(feature))
-# data = data.dropna()
+
 model = joblib.load(filename)
 y_predict = model.predict(x_test)
 count = 0
