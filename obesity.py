@@ -19,7 +19,7 @@ y = np.array(data[['Label']])
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.10,random_state=42)
 
 model = SVC()
-filename = "model_diabetes.joblib"
+filename = "model_obesity.joblib"
 
 # ! uncomment this to train model
 # model.fit(x_train,y_train)
@@ -44,5 +44,7 @@ accuracy = (true_positive + true_negative) / (true_positive + false_positive+fal
 precision = true_positive / (true_positive + false_positive)
 recall = true_positive / (true_positive + false_negative)
 f1Score = 2 * (recall * precision) / (recall + precision)
-print('true_positive: ', true_positive, ', true_negative: ', true_negative, ', false_positive: ', false_positive, ', false_negative: ', false_negative, sep = "")
-print('Accuracy: ',round(100*accuracy, 2),', Precision: ', round(precision,2),', Recall: ', round(recall,2),', F1_val: ', round(f1Score,2), sep="")
+
+print('true_positive: ', true_positive, '\ntrue_negative: ', true_negative, '\nfalse_positive: ', false_positive, '\nfalse_negative: ', false_negative, sep = "")
+print()
+print('Accuracy: ',round(accuracy, 2),'\nPrecision: ', round(precision,2),'\nRecall: ', round(recall,2),'\nF1_val: ', round(f1Score,2), sep="")
