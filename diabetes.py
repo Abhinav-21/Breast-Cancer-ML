@@ -8,7 +8,7 @@ from sklearn.metrics import confusion_matrix
 
 warnings.filterwarnings("ignore")
 
-data = pd.read_csv("diabetes_prediction_dataset.csv")
+data = pd.read_csv("datasets/diabetes/diabetes.csv")
 data = data.dropna()
 
 data['gender'] = data['gender'].map({"Male":1, "Female":0})
@@ -28,16 +28,16 @@ filename = "model.joblib"
 
 model = joblib.load(filename)
 y_predict = model.predict(x_test)
+z = np.array([[1, 20, 0, 0, 1, 20, 5.4, 95]])
+print(model.predict(z))
 count = 0
 ycount = 0
 ncount = 0
 for i in y_predict:
     count += 1
     if i == 1:
-        print("Yes")
         ycount += 1
     else:
-        print("No")
         ncount+= 1
 
 confusion_matrix = confusion_matrix(y_test,y_predict)
@@ -52,4 +52,4 @@ recall = true_positive / (true_positive + false_negative)
 f1Score = 2 * (recall * precision) / (recall + precision)
 print('total: ',count, ", Yes: ",ycount,', No: ',ncount, sep="")
 print('true_positive: ', true_positive, ', true_negative: ', true_negative, ', false_positive: ', false_positive, ', false_negative: ', false_negative, sep = "")
-print('Accuracy: ',accuracy,', Precision: ', precision,', Recall: ', recall,', F1_val: ', f1Score, sep="")
+print('Accuracy: ',round(100*accuracy, 2),', Precision: ', round(precision,2),', Recall: ', round(recall,2),', F1_val: ', round(f1Score,2), sep="")

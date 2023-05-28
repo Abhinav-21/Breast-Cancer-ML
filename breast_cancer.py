@@ -7,7 +7,7 @@ from sklearn.metrics import confusion_matrix
 
 warnings.filterwarnings("ignore")
 
-data = pd.read_csv("data.csv")
+data = pd.read_csv("datasets/breast_cancer/breast_cancer.csv")
 data = data.dropna()
 
 data["Tumour_Stage"] = data["Tumour_Stage"].map({"I": 1, "II": 2, "III": 3})

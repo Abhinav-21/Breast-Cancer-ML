@@ -7,7 +7,7 @@ from sklearn.metrics import confusion_matrix
 
 warnings.filterwarnings("ignore")
 
-data = pd.read_csv("Obesity Classification.csv")
+data = pd.read_csv("datasets/obesity/obesity.csv")
 data = data.dropna()
 
 data['Gender'] = data['Gender'].map({"Male":1, "Female":0})
@@ -20,7 +20,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.10,random_
 model = SVC()
 model.fit(x_train,y_train)
 
-feature = [22, 1, 170, 90, 28]
+feature = np.array([[20, 1, 170, 59, 20.41]])
 print(model.predict(feature))
 
 y_predict = model.predict(x_test)
