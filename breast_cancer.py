@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
+import joblib
 import warnings
 from sklearn.metrics import confusion_matrix
 
@@ -24,11 +25,20 @@ y = np.array(data[['Patient_Status']])
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.10,random_state=42)
 
 model = SVC()
-model.fit(x_train,y_train)
-features = np.array([[76.0, 1, 0.080353, 0.42638, 0.54715, 0.273680, 3, 3, 1, 1, 2, 4,]])
-print(model.predict(features))
+
+filename = "model_breast_cancer.joblib"
+
+# ! uncomment this to train model
+# model.fit(x_train,y_train)
+# joblib.dump(model, filename)
+
+model = joblib.load(filename)
+
+# ! you can edit this feature array to use custom data.
+# features = np.array([[76.0, 1, 0.080353, 0.42638, 0.54715, 0.273680, 3, 3, 1, 1, 2, 4,]])
+# print(model.predict(features)[0])
 y_predict = model.predict(x_test)
-print(y_predict)
+# print(y_predict)
 confusion_matrix = confusion_matrix(y_test,y_predict)
 true_positive = confusion_matrix[0][0]
 false_positive = confusion_matrix[0][1]
@@ -39,4 +49,5 @@ accuracy = (true_positive + true_negative) / (true_positive + false_positive+fal
 precision = true_positive / (true_positive + false_positive)
 recall = true_positive / (true_positive + false_negative)
 f1Score = 2 * (recall * precision) / (recall + precision)
-print(accuracy, precision, recall, f1Score)
+print('true_positive: ', true_positive, ', true_negative: ', true_negative, ', false_positive: ', false_positive, ', false_negative: ', false_negative, sep = "")
+print('Accuracy: ',round(100*accuracy, 2),', Precision: ', round(precision,2),', Recall: ', round(recall,2),', F1_val: ', round(f1Score,2), sep="")

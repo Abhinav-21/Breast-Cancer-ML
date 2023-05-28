@@ -20,16 +20,18 @@ y = np.array(data[['diabetes']])
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.10,random_state=42)
 
 model = SVC()
-filename = "model.joblib"
+filename = "model_diabetes.joblib"
 
 # ! uncomment this to train model
-# model.fit(x_train,y_train)
-# joblib.dump(model, filename)
+model.fit(x_train,y_train)
+joblib.dump(model, filename)
 
-model = joblib.load(filename)
+# model = joblib.load(filename)
 y_predict = model.predict(x_test)
-z = np.array([[1, 20, 0, 0, 1, 20, 5.4, 95]])
-print(model.predict(z))
+
+# ! you can edit this feature array to use custom data.
+# z = np.array([[1, 20, 0, 0, 1, 20, 5.4, 95]])
+# print(model.predict(z)[0])
 count = 0
 ycount = 0
 ncount = 0
